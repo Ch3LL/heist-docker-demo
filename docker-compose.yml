@@ -1,0 +1,32 @@
+version: '2'
+services:
+  heist:
+    hostname: heist
+    privileged: true
+    environment:
+      container: docker
+    command: bash -c "salt-master -d && heist --log-level debug"
+    build:
+      context: heist/master/
+    networks:
+      - heist
+  minion1:
+    hostname: minion1
+    privileged: true
+    environment:
+      container: docker
+    build:
+      context: heist/minion/
+    networks:
+      - heist
+  minion2:
+    hostname: minion2
+    privileged: true
+    environment:
+      container: docker
+    build:
+      context: heist/minion/
+    networks:
+      - heist
+networks:
+  heist:
